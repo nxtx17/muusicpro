@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_&*+pf_#zxlc2#=ub3ys1^r=-m7%3&0&+pos=sti+w!un@49hq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'ECOMMERCE.urls'
@@ -125,7 +126,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT= os.path.join(BASE_DIR, 'static')
+STATIC_ROOT= os.path.join(BASE_DIR, 'staticfiles')
+STATIC_TPM = os.path.join(BASE_DIR, 'static')
+
+os.makedirs(STATIC_TPM, exist_ok=True)
+os.makedirs(STATIC_ROOT, exist_ok=True)
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -136,3 +145,5 @@ LOGIN_REDIRECT_URL = '/'
 
 MEDIA_URL = '/media/' # URL de la ruta de las imagenes
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Direccion de la imagen en mi proyecto
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
