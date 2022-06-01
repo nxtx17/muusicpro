@@ -1,9 +1,5 @@
-import  requests
+
 {% extends "sitio/layout.html" %}
-url = 'https://api-dolar-argentina.herokuapp.com/api/dolaroficial'
-r = requests.get(url)
-datos = r.json()
-precio_dolar_compra = datos['compra']
 {% block content %}
 
 <section class="row my-5 container">
